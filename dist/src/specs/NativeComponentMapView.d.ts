@@ -1,5 +1,6 @@
 import type { HostComponent, ViewProps, ColorValue } from 'react-native';
 import type { Double, Int32, WithDefault, Float, DirectEventHandler, BubblingEventHandler } from 'react-native/Libraries/Types/CodegenTypes';
+import FabricMapView from './NativeComponentMapView';
 export type EdgePadding = Readonly<{
     top: Double;
     right: Double;
@@ -226,7 +227,7 @@ export type RegionChangeEvent = Readonly<{
         latitudeDelta: Double;
         longitudeDelta: Double;
     };
-    continuous?: boolean;
+    isGesture?: boolean;
 }>;
 export type UserLocationChangeEvent = Readonly<{
     coordinate?: {
@@ -865,14 +866,14 @@ export interface MapFabricNativeProps extends ViewProps {
      */
     cameraZoomRange?: CameraZoomRange;
 }
-export interface NativeCommands {
-    animateToRegion: (viewRef: React.ElementRef<React.ComponentType>, regionJSON: string, duration: Int32) => void;
-    setCamera: (viewRef: React.ElementRef<React.ComponentType>, cameraJSON: string) => void;
-    animateCamera: (viewRef: React.ElementRef<React.ComponentType>, cameraJSON: string, duration: Int32) => void;
-    fitToElements: (viewRef: React.ElementRef<React.ComponentType>, edgePaddingJSON: string, animated: boolean) => void;
-    fitToSuppliedMarkers: (viewRef: React.ElementRef<React.ComponentType>, markersJSON: string, edgePaddingJSON: string, animated: boolean) => void;
-    fitToCoordinates: (viewRef: React.ElementRef<React.ComponentType>, coordinatesJSON: string, edgePaddingJSON: string, animated: boolean) => void;
-    setIndoorActiveLevelIndex: (viewRef: React.ElementRef<React.ComponentType>, activeLevelIndex: Int32) => void;
+interface NativeCommands {
+    animateToRegion: (viewRef: React.ElementRef<typeof FabricMapView>, regionJSON: string, duration: Int32) => void;
+    setCamera: (viewRef: React.ElementRef<typeof FabricMapView>, cameraJSON: string) => void;
+    animateCamera: (viewRef: React.ElementRef<typeof FabricMapView>, cameraJSON: string, duration: Int32) => void;
+    fitToElements: (viewRef: React.ElementRef<typeof FabricMapView>, edgePaddingJSON: string, animated: boolean) => void;
+    fitToSuppliedMarkers: (viewRef: React.ElementRef<typeof FabricMapView>, markersJSON: string, edgePaddingJSON: string, animated: boolean) => void;
+    fitToCoordinates: (viewRef: React.ElementRef<typeof FabricMapView>, coordinatesJSON: string, edgePaddingJSON: string, animated: boolean) => void;
+    setIndoorActiveLevelIndex: (viewRef: React.ElementRef<typeof FabricMapView>, activeLevelIndex: Int32) => void;
 }
 export declare const Commands: NativeCommands;
 declare const _default: HostComponent<MapFabricNativeProps>;

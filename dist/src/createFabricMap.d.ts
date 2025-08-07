@@ -2,8 +2,9 @@ import React from 'react';
 import type { LatLng, Point, Region } from './sharedTypes';
 import type { Address, Camera, EdgePadding, SnapshotOptions } from './MapView.types';
 import { type MapBoundaries } from './specs/NativeAirMapsModule';
-import type { MapFabricNativeProps } from './specs/NativeComponentMapView';
-export type FabricMapViewProps = MapFabricNativeProps;
+import FabricMapView, { Commands as FabricCommands, type MapFabricNativeProps } from './specs/NativeComponentMapView';
+import GoogleMapView, { Commands as GoogleCommands, type MapFabricNativeProps as GoogleMapFabricNativeProps } from './specs/NativeComponentGoogleMapView';
+export type MapViewProps = MapFabricNativeProps | GoogleMapFabricNativeProps;
 export interface FabricMapHandle {
     getCamera: () => Promise<Camera>;
     setCamera: (camera: Partial<Camera>) => void;
@@ -20,5 +21,5 @@ export interface FabricMapHandle {
     getCoordinateForPoint: (point: Point) => Promise<LatLng>;
     setIndoorActiveLevelIndex: (activeLevelIndex: number) => void;
 }
-declare const createFabricMap: (ViewComponent: React.ComponentType, Commands: any) => React.ForwardRefExoticComponent<MapFabricNativeProps & React.RefAttributes<FabricMapHandle | null>>;
+declare const createFabricMap: (ViewComponent: typeof GoogleMapView | typeof FabricMapView, Commands: typeof FabricCommands | typeof GoogleCommands) => React.ForwardRefExoticComponent<MapViewProps & React.RefAttributes<FabricMapHandle | null>>;
 export default createFabricMap;

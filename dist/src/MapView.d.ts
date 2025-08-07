@@ -331,7 +331,7 @@ export type MapViewProps = ViewProps & {
      * @platform iOS: Supported
      * @platform Android: Supported
      */
-    onRegionChangeStart?: (event: NativeSyntheticEvent<Details>) => void;
+    onRegionChangeStart?: (region: Region, details: Details) => void;
     /**
      * Callback that is called continuously when the region changes, such as when a user is dragging the map.
      * `isGesture` property indicates if the move was from the user (true) or an animation (false).
@@ -462,6 +462,14 @@ export type MapViewProps = ViewProps & {
      * @platform Android: Not supported
      */
     showsScale?: boolean;
+    /**
+     * A Boolean value indicating whether the map displays traffic information.
+     *
+     * @default false
+     * @platform iOS: Supported
+     * @platform Android: Supported
+     */
+    showsTraffic?: boolean;
     /**
      * If `true` the users location will be displayed on the map.
      *
@@ -601,7 +609,6 @@ declare class MapView extends React.Component<MapViewProps, State> {
     constructor(props: MapViewProps);
     setNativeProps(props: Partial<NativeProps>): void;
     private _onMapReady;
-    private _onChange;
     getCamera(): Promise<Camera>;
     setCamera(camera: Partial<Camera>): void;
     animateCamera(camera: Partial<Camera>, opts?: {

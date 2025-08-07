@@ -1,5 +1,6 @@
 import type { HostComponent, ViewProps, ColorValue } from 'react-native';
 import type { Double, Int32, WithDefault, Float, DirectEventHandler, BubblingEventHandler } from 'react-native/Libraries/Types/CodegenTypes';
+import GoogleMapView from './NativeComponentGoogleMapView';
 export type EdgePadding = Readonly<{
     top: Double;
     right: Double;
@@ -227,7 +228,7 @@ export type RegionChangeEvent = Readonly<{
         latitudeDelta: Double;
         longitudeDelta: Double;
     };
-    continuous?: boolean;
+    isGesture?: boolean;
 }>;
 export type RegionChangeEventHandler = BubblingEventHandler<RegionChangeEvent>;
 export type UserLocationChangeEvent = Readonly<{
@@ -703,14 +704,14 @@ export interface MapFabricNativeProps extends ViewProps {
      */
     zoomTapEnabled?: WithDefault<boolean, true>;
 }
-export interface NativeCommands {
-    animateToRegion: (viewRef: React.ElementRef<React.ComponentType>, regionJSON: string, duration: Int32) => void;
-    setCamera: (viewRef: React.ElementRef<React.ComponentType>, cameraJSON: string) => void;
-    animateCamera: (viewRef: React.ElementRef<React.ComponentType>, cameraJSON: string, duration: Int32) => void;
-    fitToElements: (viewRef: React.ElementRef<React.ComponentType>, edgePaddingJSON: string, animated: boolean) => void;
-    fitToSuppliedMarkers: (viewRef: React.ElementRef<React.ComponentType>, markersJSON: string, edgePaddingJSON: string, animated: boolean) => void;
-    fitToCoordinates: (viewRef: React.ElementRef<React.ComponentType>, coordinatesJSON: string, edgePaddingJSON: string, animated: boolean) => void;
-    setIndoorActiveLevelIndex: (viewRef: React.ElementRef<React.ComponentType>, activeLevelIndex: Int32) => void;
+interface NativeCommands {
+    animateToRegion: (viewRef: React.ElementRef<typeof GoogleMapView>, regionJSON: string, duration: Int32) => void;
+    setCamera: (viewRef: React.ElementRef<typeof GoogleMapView>, cameraJSON: string) => void;
+    animateCamera: (viewRef: React.ElementRef<typeof GoogleMapView>, cameraJSON: string, duration: Int32) => void;
+    fitToElements: (viewRef: React.ElementRef<typeof GoogleMapView>, edgePaddingJSON: string, animated: boolean) => void;
+    fitToSuppliedMarkers: (viewRef: React.ElementRef<typeof GoogleMapView>, markersJSON: string, edgePaddingJSON: string, animated: boolean) => void;
+    fitToCoordinates: (viewRef: React.ElementRef<typeof GoogleMapView>, coordinatesJSON: string, edgePaddingJSON: string, animated: boolean) => void;
+    setIndoorActiveLevelIndex: (viewRef: React.ElementRef<typeof GoogleMapView>, activeLevelIndex: Int32) => void;
 }
 export declare const Commands: NativeCommands;
 declare const _default: HostComponent<MapFabricNativeProps>;
